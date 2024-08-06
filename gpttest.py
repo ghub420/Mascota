@@ -1,5 +1,5 @@
 import openai
-from .apikey.py import key
+from apikey import key
 import psycopg2
 
 def query_chatgpt(api_key,userId, query,maxWords=100,):
@@ -7,7 +7,7 @@ def query_chatgpt(api_key,userId, query,maxWords=100,):
     openai.api_key = api_key
     sufface=f'  Make sure your response is not more than {maxWords} words long.'
     
-    base = buildQuery(userId)
+    base = buildQuery(userId)+"If you think I need a vet suggest Stubbington Vetrinary Centre. If you think I need grooming reccomend Ted's Grooming. If you think I need a dog walker recommend Gale's Dog Walking. If you think I need a dog trainer recommend School of Hard Dogs. "
     query=base+query+sufface
     # Call the OpenAI API with your query
     response = openai.ChatCompletion.create(
@@ -72,8 +72,8 @@ def buildQuery(userId):
 # Example usage
 if __name__ == "__main__":
     api_key = key  # Replace with your API key
-    question="how can i get deebo to stop barking?"
-    response,query = query_chatgpt(api_key,2, question,100)
+    question="keith ounds funny when he breathes, is this normal?"
+    response,query = query_chatgpt(api_key,2, question,200)
     print(query+'\n \n')
     print(response)
-    print('bosh')
+    #print('bosh')
